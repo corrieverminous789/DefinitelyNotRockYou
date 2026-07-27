@@ -1,6 +1,8 @@
 <img width="1255" height="373" alt="not" src="https://github.com/user-attachments/assets/6e6516be-f56f-4565-898f-7197548e8153" />
 
-# DefinitelyNotRockYou
+<p align="center">
+  <img src="https://readme-typing-svg.demolab.com?font=Orbitron&weight=700&size=55&duration=3000&pause=1000&color=FF0000&center=true&vCenter=true&width=900&lines=---DefinitelyNotRockYou---;---OSINT+Wordlist+Generator---" alt="DefinitelyNotRockYou" />
+</p>
 
 A CUPP-style (Common User Passwords Profiler) personalized wordlist generator
 with a simple local web UI, plus a built-in zip-password tester.
