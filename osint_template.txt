@@ -1,0 +1,86 @@
+# DefinitelyNotRockYou - OSINT Data Collection Template
+# ------------------------------------------------------
+# Fill in whatever you know. Leave blank / delete the line if unknown - missing
+# fields are fine, the generator just skips them.
+# Format is:  field_name: value
+# For fields that can have multiple values, separate with a comma.
+# Lines starting with # are comments and are ignored.
+# Only use this on targets you are authorized to test (yourself, or an
+# engagement you have written permission for).
+
+# --- SELF ---
+first_name:
+second_first_name:
+middle_name:
+last_name:
+nickname:
+maiden_name:
+ign:
+
+# --- DATES / NUMBERS ---
+birth_day:
+birth_month:
+birth_year:
+anniversary_date:
+grad_year:
+fav_number:
+lucky_number:
+age:
+
+# --- PREFERENCES ---
+fav_color:
+fav_movie:
+fav_game:
+fav_food:
+fav_character:
+fav_song:
+fav_team:
+fav_show:
+
+# --- PETS ---
+pet_name:
+past_pet_name:
+
+# --- FAMILY: PARENTS ---
+mother_first_name:
+mother_middle_name:
+mother_last_name:
+father_first_name:
+father_middle_name:
+father_last_name:
+
+# --- FAMILY: SIBLINGS ---
+brother_name:
+sister_name:
+
+# --- FAMILY: PARTNER ---
+partner_name:
+spouse_name:
+ex_partner_name:
+
+# --- FAMILY: CHILDREN / EXTENDED ---
+son_name:
+daughter_name:
+grandchild_name:
+nephew_niece_name:
+
+# --- LOCATION ---
+hometown:
+current_city:
+street_name:
+school_name:
+
+# --- IDENTIFIERS ---
+phone_last_digits:
+plate_number:
+
+# --- WORK / ONLINE ---
+company_name:
+job_title:
+gamertag:
+clan_or_guild:
+old_username:
+
+# --- MISC ---
+wifi_ssid:
+security_question_answer:

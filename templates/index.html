@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DefinitelyNotRockYou</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Special+Elite&family=Work+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --board: #2f2a24;
+    --board-2: #362f27;
+    --card: #fbf6ea;
+    --card-edge: #e7dcc2;
+    --ink: #2b2420;
+    --ink-soft: #6b5f4f;
+    --red: #b8433a;
+    --red-dark: #8f322b;
+    --yellow: #e7b53f;
+    --yellow-dark: #c99424;
+    --teal: #3d7a72;
+    --green-ok: #3f7d52;
+    --shadow: rgba(20, 16, 10, 0.35);
+    --display-font: 'Special Elite', 'Courier New', monospace;
+    --body-font: 'Work Sans', -apple-system, sans-serif;
+    --mono-font: 'IBM Plex Mono', ui-monospace, monospace;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    padding: 32px 16px 64px;
+    background:
+      radial-gradient(circle at 20% 10%, rgba(255,255,255,0.03), transparent 40%),
+      repeating-linear-gradient(45deg, rgba(0,0,0,0.05) 0 2px, transparent 2px 5px),
+      var(--board);
+    color: var(--ink);
+    font-family: var(--body-font);
+    line-height: 1.5;
+  }
+
+  .wrap { max-width: 760px; margin: 0 auto; }
+
+  /* ---------- Header ---------- */
+  .header {
+    position: relative;
+    text-align: center;
+    padding: 18px 20px 26px;
+    margin-bottom: 30px;
+  }
+  .header h1 {
+    font-family: var(--display-font);
+    font-size: 34px;
+    color: var(--card);
+    margin: 0;
+    letter-spacing: 0.5px;
+    text-shadow: 2px 2px 0 rgba(0,0,0,0.25);
+  }
+  .header .sub {
+    color: #c9bfa9;
+    font-size: 14px;
+    margin-top: 8px;
+    font-style: italic;
+  }
+  .stamp {
+    display: inline-block;
+    margin-top: 14px;
+    padding: 5px 14px;
+    border: 2px solid var(--red);
+    color: var(--red);
+    font-family: var(--display-font);
+    font-size: 12px;
+    letter-spacing: 3px;
+    transform: rotate(-3deg);
+    border-radius: 3px;
+    opacity: 0.9;
+  }
+
+  .flash {
+    background: #fff3f1;
+    border: 1px solid var(--red);
+    color: var(--red-dark);
+    padding: 12px 16px;
+    border-radius: 6px;
+    font-size: 14px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 10px var(--shadow);
+  }
+
+  /* ---------- Folder-tab section headers ---------- */
+  .folder {
+    margin-bottom: 34px;
+  }
+  .tab {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--yellow);
+    color: var(--ink);
+    font-family: var(--display-font);
+    font-size: 13px;
+    letter-spacing: 1px;
+    padding: 8px 18px 10px;
+    border-radius: 8px 8px 0 0;
+    position: relative;
+    top: 2px;
+    box-shadow: 0 -2px 0 rgba(0,0,0,0.05) inset;
+  }
+  .tab .num {
+    background: var(--ink);
+    color: var(--yellow);
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+  }
+  .card {
+    background: var(--card);
+    border: 1px solid var(--card-edge);
+    border-radius: 4px 10px 10px 10px;
+    padding: 24px;
+    box-shadow: 0 10px 24px var(--shadow);
+  }
+  .card p.hint {
+    color: var(--ink-soft);
+    font-size: 13.5px;
+    margin: -6px 0 18px;
+  }
+
+  /* ---------- Input-mode switch ---------- */
+  .mode-switch {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 20px;
+    border-bottom: 2px solid var(--card-edge);
+    padding-bottom: 2px;
+  }
+  .mode-btn {
+    flex: 1;
+    background: transparent;
+    border: none;
+    padding: 10px 8px;
+    font-family: var(--body-font);
+    font-weight: 600;
+    font-size: 13.5px;
+    color: var(--ink-soft);
+    cursor: pointer;
+    border-bottom: 3px solid transparent;
+    position: relative;
+    transition: color .15s ease;
+  }
+  .mode-btn.active {
+    color: var(--ink);
+    border-bottom-color: var(--red);
+  }
+  .mode-btn .badge {
+    display: inline-block;
+    font-family: var(--mono-font);
+    font-size: 9.5px;
+    background: var(--teal);
+    color: #fff;
+    padding: 1px 6px;
+    border-radius: 8px;
+    margin-left: 6px;
+    vertical-align: middle;
+    letter-spacing: 0.5px;
+  }
+
+  .mode-panel { display: none; }
+  .mode-panel.active { display: block; }
+
+  /* ---------- Quick form (accordion) ---------- */
+  details.group {
+    border: 1px solid var(--card-edge);
+    border-radius: 6px;
+    margin-bottom: 10px;
+    background: #fffdf8;
+    overflow: hidden;
+  }
+  details.group[open] { border-color: var(--yellow-dark); }
+  details.group summary {
+    cursor: pointer;
+    padding: 12px 14px;
+    font-weight: 600;
+    font-size: 14px;
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #f4ecd8;
+  }
+  details.group summary::-webkit-details-marker { display: none; }
+  details.group summary::after {
+    content: "+";
+    font-family: var(--mono-font);
+    font-size: 16px;
+    color: var(--ink-soft);
+    transition: transform .15s ease;
+  }
+  details.group[open] summary::after { content: "–"; }
+  details.group .group-hint {
+    font-size: 12px;
+    color: var(--ink-soft);
+    font-weight: 400;
+  }
+  .group-body {
+    padding: 16px 14px 6px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px 14px;
+  }
+  @media (max-width: 560px) {
+    .group-body { grid-template-columns: 1fr; }
+  }
+  .field label {
+    display: block;
+    font-size: 11.5px;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+    color: var(--ink-soft);
+    margin-bottom: 4px;
+  }
+  .field input[type=text] {
+    width: 100%;
+    border: 1px solid var(--card-edge);
+    background: #fff;
+    padding: 8px 10px;
+    border-radius: 4px;
+    font-family: var(--body-font);
+    font-size: 13.5px;
+    color: var(--ink);
+  }
+  .field input[type=text]:focus {
+    outline: none;
+    border-color: var(--teal);
+    box-shadow: 0 0 0 3px rgba(61,122,114,0.15);
+  }
+
+  textarea, input[type=file] {
+    width: 100%;
+    background: #fff;
+    border: 1px solid var(--card-edge);
+    color: var(--ink);
+    font-family: var(--mono-font);
+    font-size: 13px;
+    padding: 10px;
+    border-radius: 4px;
+  }
+  textarea { min-height: 130px; resize: vertical; }
+  input[type=file] { padding: 9px; font-family: var(--body-font); }
+  .recommended-note {
+    background: #eef5f3;
+    border: 1px dashed var(--teal);
+    color: #2c5a54;
+    font-size: 12.5px;
+    padding: 8px 12px;
+    border-radius: 6px;
+    margin-bottom: 14px;
+  }
+  .divider { text-align: center; color: var(--ink-soft); font-size: 11px; margin: 16px 0; letter-spacing: 2px; }
+
+  /* ---------- Buttons ---------- */
+  button.primary {
+    background: var(--red);
+    border: none;
+    color: #fff;
+    font-family: var(--body-font);
+    font-weight: 600;
+    font-size: 14px;
+    padding: 12px 22px;
+    border-radius: 6px;
+    cursor: pointer;
+    margin-top: 18px;
+    box-shadow: 0 4px 0 var(--red-dark);
+    transition: transform .08s ease;
+  }
+  button.primary:hover { transform: translateY(-1px); }
+  button.primary:active { transform: translateY(2px); box-shadow: 0 2px 0 var(--red-dark); }
+
+  /* ---------- Results ---------- */
+  .result-hero {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    background: #f4ecd8;
+    border-radius: 8px;
+    padding: 16px 18px;
+    margin-bottom: 16px;
+  }
+  .result-hero .count {
+    font-family: var(--display-font);
+    font-size: 30px;
+    color: var(--red);
+    line-height: 1;
+  }
+  .result-hero .count-label {
+    font-size: 12.5px;
+    color: var(--ink-soft);
+    max-width: 380px;
+  }
+  .fields-used {
+    font-size: 12.5px;
+    color: var(--ink-soft);
+    margin-bottom: 14px;
+  }
+  .fields-used span {
+    display: inline-block;
+    background: #eee2c5;
+    padding: 2px 8px;
+    border-radius: 10px;
+    margin: 2px 3px 0 0;
+    font-family: var(--mono-font);
+    font-size: 11px;
+  }
+  pre.preview {
+    background: #1f1b16;
+    color: #d9cdb0;
+    border-radius: 6px;
+    padding: 14px;
+    font-family: var(--mono-font);
+    font-size: 12.5px;
+    max-height: 200px;
+    overflow-y: auto;
+    margin: 0 0 16px;
+  }
+  a.dl-link {
+    display: inline-block;
+    background: var(--yellow);
+    color: var(--ink);
+    font-weight: 600;
+    text-decoration: none;
+    padding: 10px 18px;
+    border-radius: 6px;
+    font-size: 13.5px;
+    box-shadow: 0 4px 0 var(--yellow-dark);
+  }
+  a.dl-link:hover { transform: translateY(-1px); }
+
+  /* ---------- Crack result stamp ---------- */
+  .crack-stamp {
+    margin-top: 16px;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 18px;
+    border-radius: 6px;
+    font-family: var(--display-font);
+    font-size: 15px;
+    letter-spacing: 1px;
+    transform: rotate(-2deg);
+  }
+  .crack-stamp.ok {
+    border: 3px solid var(--green-ok);
+    color: var(--green-ok);
+  }
+  .crack-stamp.bad {
+    border: 3px solid var(--red);
+    color: var(--red);
+  }
+
+  .footer-note {
+    text-align: center;
+    font-size: 12px;
+    color: #a89c85;
+    margin-top: 30px;
+    padding-top: 16px;
+  }
+  .footer-note strong { color: #c9bfa9; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="header">
+    <h1>DefinitelyNotRockYou</h1>
+    <div class="sub">a wordlist that knows way too much about your target</div>
+    <div class="stamp">FOR AUTHORIZED USE ONLY</div>
+  </div>
+
+  {% with messages = get_flashed_messages() %}
+    {% if messages %}
+      {% for m in messages %}
+        <div class="flash">{{ m }}</div>
+      {% endfor %}
+    {% endif %}
+  {% endwith %}
+
+  <!-- STEP 1 -->
+  <div class="folder">
+    <div class="tab"><span class="num">1</span> Build the case file</div>
+    <div class="card">
+      <p class="hint">Tell it what you know about the target. Missing info is completely fine — it just skips anything left blank.</p>
+
+      <div class="mode-switch">
+        <button type="button" class="mode-btn active" data-mode="upload" onclick="switchMode('upload')">
+          Upload / Paste <span class="badge">recommended</span>
+        </button>
+        <button type="button" class="mode-btn" data-mode="form" onclick="switchMode('form')">
+          Quick Form
+        </button>
+      </div>
+
+      <form action="/generate" method="post" enctype="multipart/form-data" id="mainForm">
+        <input type="hidden" name="input_mode" id="input_mode" value="upload">
+
+        <!-- Upload/Paste panel -->
+        <div class="mode-panel active" id="panel-upload">
+          <div class="recommended-note">
+            This is the most thorough option — grab <code>osint_template.txt</code> from the project folder, fill it in, and drop it below. Best for building out a full profile over time.
+          </div>
+          <label style="display:block;font-size:12px;color:var(--ink-soft);margin-bottom:6px;">Upload filled osint_template.txt</label>
+          <input type="file" name="osint_file" accept=".txt">
+          <div class="divider">— or —</div>
+          <label style="display:block;font-size:12px;color:var(--ink-soft);margin-bottom:6px;">Paste field: value lines directly</label>
+          <textarea name="osint_text" placeholder="first_name: Juan&#10;pet_name: Bantay&#10;birth_year: 1999"></textarea>
+        </div>
+
+        <!-- Quick Form panel -->
+        <div class="mode-panel" id="panel-form">
+          {% for label, group_hint, group_fields in field_groups %}
+          <details class="group">
+            <summary>
+              <span>{{ label }}{% if group_hint %} <span class="group-hint">— {{ group_hint }}</span>{% endif %}</span>
+            </summary>
+            <div class="group-body">
+              {% for key, placeholder in group_fields %}
+              <div class="field">
+                <label for="f_{{ key }}">{{ key.replace('_', ' ') }}</label>
+                <input type="text" id="f_{{ key }}" name="{{ key }}" placeholder="{{ placeholder }}">
+              </div>
+              {% endfor %}
+            </div>
+          </details>
+          {% endfor %}
+        </div>
+
+        <div class="field" style="margin-top:18px;">
+          <label for="wordlist_size" style="margin-bottom:6px;">Wordlist size</label>
+          <select name="wordlist_size" id="wordlist_size" style="width:100%;border:1px solid var(--card-edge);background:#fff;padding:9px 10px;border-radius:4px;font-family:var(--body-font);font-size:13.5px;color:var(--ink);">
+            <option value="quick">Quick — ~50k passwords, fastest</option>
+            <option value="standard" selected>Standard — ~150k passwords (recommended)</option>
+            <option value="thorough">Thorough — ~400k passwords, more date/number combos</option>
+            <option value="maximum">Maximum — ~800k passwords, slowest, widest coverage</option>
+          </select>
+        </div>
+
+        <button type="submit" class="primary">Generate the wordlist</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- STEP 2 (result) -->
+  {% if generated %}
+  <div class="folder">
+    <div class="tab"><span class="num">2</span> Here's what it found</div>
+    <div class="card">
+      <div class="result-hero">
+        <div class="count">{{ count }}</div>
+        <div class="count-label">possible passwords generated from the info you gave it.</div>
+      </div>
+      <div class="fields-used">
+        Built from: {% for f in fields_used %}<span>{{ f.replace('_',' ') }}</span>{% endfor %}
+      </div>
+      <p class="hint" style="margin-top:0;">Preview (first 25 of {{ count }}):</p>
+      <pre class="preview">{% for p in preview %}{{ p }}
+{% endfor %}</pre>
+      <a class="dl-link" href="/download">Download full wordlist (.txt)</a>
+    </div>
+  </div>
+  {% endif %}
+
+  <!-- STEP 3 -->
+  <div class="folder">
+    <div class="tab"><span class="num">3</span> Put it to the test</div>
+    <div class="card">
+      <p class="hint">Got a password-protected zip? Throw it at the wordlist and see if it holds up.</p>
+      <form action="/crack" method="post" enctype="multipart/form-data">
+        <label style="display:block;font-size:12px;color:var(--ink-soft);margin-bottom:6px;">Upload a .zip (generate a wordlist above first)</label>
+        <input type="file" name="zip_file" accept=".zip">
+        <button type="submit" class="primary">Attempt crack</button>
+      </form>
+
+      {% if cracked %}
+        {% if found %}
+          <div class="crack-stamp ok">CASE CLOSED — "{{ password }}" (attempt #{{ attempts }})</div>
+        {% else %}
+          <div class="crack-stamp bad">NOT IN THIS WORDLIST ({{ attempts }} tried)</div>
+        {% endif %}
+      {% endif %}
+    </div>
+  </div>
+
+  <div class="footer-note">
+    <strong>Only run this against files or accounts you own, or have written authorization to test.</strong><br>
+    Everything here stays on your machine — nothing is uploaded anywhere else.
+  </div>
+</div>
+
+<script>
+function switchMode(mode) {
+  document.getElementById('input_mode').value = mode;
+  document.querySelectorAll('.mode-btn').forEach(b => b.classList.toggle('active', b.dataset.mode === mode));
+  document.getElementById('panel-upload').classList.toggle('active', mode === 'upload');
+  document.getElementById('panel-form').classList.toggle('active', mode === 'form');
+}
+</script>
+</body>
+</html>
