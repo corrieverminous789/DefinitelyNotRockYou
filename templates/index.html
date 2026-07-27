@@ -396,22 +396,19 @@
       <p class="hint">Tell it what you know about the target. Missing info is completely fine — it just skips anything left blank.</p>
 
       <div class="mode-switch">
-        <button type="button" class="mode-btn active" data-mode="upload" onclick="switchMode('upload')">
-          Upload / Paste <span class="badge">recommended</span>
+        <button type="button" class="mode-btn active" data-mode="form" onclick="switchMode('form')">
+          Quick Form <span class="badge">recommended</span>
         </button>
-        <button type="button" class="mode-btn" data-mode="form" onclick="switchMode('form')">
-          Quick Form
+        <button type="button" class="mode-btn" data-mode="upload" onclick="switchMode('upload')">
+          Upload / Paste
         </button>
       </div>
 
       <form action="/generate" method="post" enctype="multipart/form-data" id="mainForm">
-        <input type="hidden" name="input_mode" id="input_mode" value="upload">
+        <input type="hidden" name="input_mode" id="input_mode" value="form">
 
         <!-- Upload/Paste panel -->
-        <div class="mode-panel active" id="panel-upload">
-          <div class="recommended-note">
-            This is the most thorough option — grab <code>osint_template.txt</code> from the project folder, fill it in, and drop it below. Best for building out a full profile over time.
-          </div>
+        <div class="mode-panel" id="panel-upload">
           <label style="display:block;font-size:12px;color:var(--ink-soft);margin-bottom:6px;">Upload filled osint_template.txt</label>
           <input type="file" name="osint_file" accept=".txt">
           <div class="divider">— or —</div>
@@ -420,7 +417,10 @@
         </div>
 
         <!-- Quick Form panel -->
-        <div class="mode-panel" id="panel-form">
+        <div class="mode-panel active" id="panel-form">
+          <div class="recommended-note">
+            Fastest way to get going — expand whichever categories apply and type values directly into the fields. No file needed, and it's fine to leave anything you don't know blank.
+          </div>
           {% for label, group_hint, group_fields in field_groups %}
           <details class="group">
             <summary>
